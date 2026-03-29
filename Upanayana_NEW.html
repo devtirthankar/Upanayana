@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  height: 100vh;
+  overflow: hidden;
+  background: url('BGbasic.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Semi-transparent card */
+.card {
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  border: 2px solid #d4af37;
+  background: rgba(255,255,255,0.5);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  padding-top: 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+    
+    h1 {
+      color: #8b0000;
+    }
+    
+    .mantra {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    /*
+    .play-btn {
+      margin-top: 20px;
+      padding: 8px 15px;
+      border: 1px solid #8b0000;
+      cursor: pointer;
+    }*/
+    .controls {
+      position: absolute;
+      bottom: 110px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .play-btn {
+      padding: 8px 15px;
+      border: 1px solid #8b0000;
+      background: rgba(255,255,255,0.7);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+/* Content blocks */
+.content {
+    margin-top: 20px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.content.active {
+  opacity: 1;
+}
+
+/* Bottom boy image */
+.boy {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+    .boy img {
+        max-height: 200px
+    }
+
+/* Fire animation */
+    .fire {
+        position: absolute;
+        bottom: -40px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .fire img {
+        width: 100px;
+        opacity: 0.9;
+    }
+
+    .flame {
+        width: 20px;
+        height: 60px;
+        margin: 2px;
+        background: radial-gradient(circle, #ff0, #f00);
+        border-radius: 50%;
+        animation: flicker 0.3s infinite alternate;
+    }
+
+    .flame:nth-child(2) { animation-delay: 0.1s; }
+    .flame:nth-child(3) { animation-delay: 0.2s; }
+
+    @keyframes flicker {
+        from {
+            transform: scaleY(1);
+            opacity: 0.8;
+        }
+        to {
+            transform: scaleY(1.4);
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Content Card -->
+<div class="card">
+
+  <div id="english" class="content active">
+      <div class="mantra">॥ श्री गणेशाय नमः ॥</div>
+      <h1>Upanayanam Ceremony</h1>
+      <p><strong>Chi. REYANSH</strong></p>
+      <p>Son of<br>Tirthankar Mukherjee & Nabanita Mukherjee</p>
+      <p>
+        Date: 28th April, 2026<br>
+        Time: 9:00 a.m.<br>
+        Venue: Noapara Old Kali Bari, Barasat
+      </p>
+      <p>We request your presence and blessings</p>
+      <!-- <div class="play-btn" onclick="playMusic()">🎵 Play Music</div> -->
+  </div>
+
+  <div id="bengali" class="content">
+    <div class="mantra">॥ শ্রী গণেশায় নমঃ ॥</div>
+    <h1>শুভ উপনয়ন</h1>
+    <p><strong>Master রেয়াংশ</strong></p>
+    <p>Son of<br>তীর্থঙ্কর মুখার্জি & নবনীতা মুখার্জি</p>
+    <p>
+        তারিখ: ১৪ই বৈশাখ, ১৪৩৩<br>
+        সময়: সকাল ৯:০০ টা<br>
+        স্থান: নোয়াপাড়া পুরাতন কালীবাড়ী, বারাসাত
+    </p>
+    <p>আপনার উপস্থিতি ও আশীর্বাদ একান্ত কাম্য</p>
+    <!-- <div class="play-btn" onclick="playMusic()">🎵 Play Music</div> -->
+  </div>
+
+  <div class="controls">
+      <div id="playPauseBtn" class="play-btn">🎵 Play Music</div>
+    </div>
+  
+</div>
+
+<!-- Bottom visuals -->
+<!-- fire animation -->
+<div class="fire">
+    <img src="fire-transparent.webp" alt="Fire">
+</div>
+
+<!-- boy image -->
+<div class="boy">
+    <img src="boyImage.png" alt="Bramhmachari">
+</div>
+
+<script>
+let isEnglish = true;
+
+setInterval(() => {
+  const eng = document.getElementById("english");
+  const ben = document.getElementById("bengali");
+
+  if (isEnglish) {
+    eng.classList.remove("active");
+    ben.classList.add("active");
+  } else {
+    ben.classList.remove("active");
+    eng.classList.add("active");
+  }
+
+  isEnglish = !isEnglish;
+}, 5000);
+</script>
+
+<!-- Audio Section -->
+<audio id="music" loop>
+  <source src="KhandanaBhavaTrimmed.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const audio = document.getElementById('music');
+      const btn = document.getElementById('playPauseBtn');
+
+      btn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          btn.textContent = 'Pause'; // Change text to Pause when playing
+        } else {
+          audio.pause();
+          btn.textContent = '🎵 Play Music';  // Change text back to Play when paused
+        }
+      });
+</script>
+
+</body>
+</html>
