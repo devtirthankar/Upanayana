@@ -261,7 +261,7 @@ body {
   </div>
   
   <div class="controls">
-      <div id="playPauseBtn" class="play-btn">  🎵  </div>
+      <div id="playPauseBtn" class="play-btn"> 🎵 Play </div>
     </div>
   
 </div>
@@ -366,7 +366,7 @@ setInterval(() => {
       }
 
       isEnglish = !isEnglish;
-    }, 5000);
+    }, 10000);
 </script>
 
 <!-- Audio Section -->
@@ -381,11 +381,11 @@ setInterval(() => {
       btn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
-          btn.textContent = '  ⏸️  '; // Change text to Pause when playing
+          btn.textContent = ' ⏸️ Pause'; // Change text to Pause when playing
           /* flowerBurst(); */
         } else {
           audio.pause();
-          btn.textContent = '  🎵  ';  // Change text back to Play when paused
+          btn.textContent = ' 🎵 Play ';  // Change text back to Play when paused
         }
       });
 </script>
