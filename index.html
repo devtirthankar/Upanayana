@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
 <style>
 body {
   margin: 0;
@@ -13,6 +13,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Cormorant Garamond', serif; /* body font */
 }
 
 /* Semi-transparent card */
@@ -29,17 +30,28 @@ body {
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  padding-top: 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  padding-top: 20px;
+  /* box-shadow: 0 4px 20px rgba(0,0,0,0.15);*/
 }
     
     h1 {
+        font-family: 'Cinzel', serif; /* keep ceremonial feel */
       color: #8b0000;
+      letter-spacing: 1px;
+    }
+    
+    p {
+      font-size: 18px;
+      line-height: 1.4;
+    }
+    
+    #bengali {
+      font-family: 'Noto Serif Bengali', serif;
     }
     
     .mantra {
-      font-size: 14px;
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
     /*
     .play-btn {
@@ -49,11 +61,13 @@ body {
       cursor: pointer;
     }*/
     .controls {
-      position: absolute;
-      bottom: 110px;
+      position: fixed;       /* fixed to viewport instead of absolute */
+      bottom: 90px;          /* distance from bottom */
       width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end; /* optional, single button so not needed */
+        right: 80px;           /* distance from right */
+        z-index: 5;            /* above flowers/boy */
     }
 
     .play-btn {
@@ -75,6 +89,24 @@ body {
 .content.active {
   opacity: 1;
 }
+    .grandparents {
+      position: absolute;
+      bottom: 120px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+      font-size: clamp(16px, 1.5vw, 18px);
+      font-family: 'Cormorant Garamond', serif;
+      color: #8b0000;
+      line-height: 1.6;
+      opacity: 0;             /* hidden by default, fade-in controlled by .content */
+      transition: opacity 1s;
+    }
+
+    .content.active.grandparents {
+      opacity: 1;
+    }
 
 /* Bottom boy image */
 .boy {
@@ -102,7 +134,7 @@ body {
 
     .fire img {
         width: 100px;
-        opacity: 0.9;
+        opacity: 0.75;
     }
 
     .flame {
@@ -127,6 +159,40 @@ body {
             opacity: 1;
         }
     }
+    
+    .flowers {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .flower {
+      position: absolute;
+      top: -50px;
+      width: 30px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      60% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateY(30vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+      }
+    }
 </style>
 </head>
 
@@ -141,8 +207,8 @@ body {
       <p><strong>Chi. REYANSH</strong></p>
       <p>Son of<br>Tirthankar Mukherjee & Nabanita Mukherjee</p>
       <p>
-        Date: 28th April, 2026<br>
-        Time: 9:00 a.m.<br>
+        Date: 28th April, 2026 (Tuesday)<br>
+        Time: 9:00 a.m. (Upanayan), 12:30 (Lunch)<br>
         Venue: Noapara Old Kali Bari, Barasat
       </p>
       <p>We request your presence and blessings</p>
@@ -152,23 +218,111 @@ body {
   <div id="bengali" class="content">
     <div class="mantra">॥ শ্রী গণেশায় নমঃ ॥</div>
     <h1>শুভ উপনয়ন</h1>
-    <p><strong>Master রেয়াংশ</strong></p>
-    <p>Son of<br>তীর্থঙ্কর মুখার্জি & নবনীতা মুখার্জি</p>
+    <p>তীর্থঙ্কর ও নবনীতার একমাত্র পুত্র</p>
+    <p><strong>রেয়াংশ</strong></p>
     <p>
-        তারিখ: ১৪ই বৈশাখ, ১৪৩৩<br>
-        সময়: সকাল ৯:০০ টা<br>
+        তারিখ: ১৪ই বৈশাখ, ১৪৩৩ (মঙ্গলবার)<br>
+        সময়: সকাল ৯:০০ টা (উপনয়ন), দুপুর ১২:৩০ টা (মধ্যাহ্নভোজ)<br>
         স্থান: নোয়াপাড়া পুরাতন কালীবাড়ী, বারাসাত
     </p>
     <p>আপনার উপস্থিতি ও আশীর্বাদ একান্ত কাম্য</p>
     <!-- <div class="play-btn" onclick="playMusic()">🎵 Play Music</div> -->
+    
   </div>
-
+  
+  <div id="grandparents-english" class="grandparents content active">
+    <div class="left-names">
+      <div>Nishith Kumar Chaki</div>
+      <div>Anjana Chaki</div>
+    </div>
+    <div class="right-name">
+      <div>Nilima Mukherjee</div>
+    </div>
+  </div>
+  
+  <div id="grandparents-bengali" class="grandparents content">
+    <div class="left-names">
+      <div>নিশীথ কুমার চাকী (দাদু)</div>
+      <div>অঞ্জনা চাকী (দিদা)</div>
+    </div>
+    <div class="right-name">
+      <div>নীলিমা মুখার্জি (ঠাকুমা)</div>
+    </div>
+  </div>
+  
   <div class="controls">
-      <div id="playPauseBtn" class="play-btn">🎵 Play Music</div>
+      <div id="playPauseBtn" class="play-btn">  🎵  </div>
     </div>
   
 </div>
+<div class="flowers"></div>
+<script>
+    const flowerContainer = document.querySelector('.flowers');
 
+    // List of flower images
+    const flowerImages = [
+      'flower1.png',
+      'flower2.png',
+      'flower3.png'
+    ];
+    
+    for (let i = 0; i < 35; i++) {
+      const flower = document.createElement('img');
+
+      // Pick random flower
+      const randomFlower = flowerImages[Math.floor(Math.random() * flowerImages.length)];
+      flower.src = randomFlower;
+
+      flower.classList.add('flower');
+
+      // Random horizontal position
+      flower.style.left = Math.random() * 100 + 'vw';
+
+      // Random size
+      flower.style.width = (15 + Math.random() * 15) + 'px';
+
+      // Random fall speed
+      flower.style.animationDuration = (6 + Math.random() * 6) + 's';
+
+      // Random delay (so they don’t all start together)
+      flower.style.animationDelay = Math.random() * 5 + 's';
+
+      flowerContainer.appendChild(flower);
+    }
+</script>
+
+<script>
+    function flowerBurst() {
+      const flowerContainer = document.querySelector('.flowers');
+      const flowerImages = ['flower1.png', 'flower2.png', 'flower3.png'];
+
+      for (let i = 0; i < 15; i++) { // number of flowers in burst
+        const flower = document.createElement('img');
+        flower.src = flowerImages[Math.floor(Math.random() * flowerImages.length)];
+        flower.classList.add('flower');
+
+        // Random horizontal start within container
+        flower.style.left = Math.random() * 80 + 10 + 'vw';
+        flower.style.top = '-50px';
+
+        // Random size
+        flower.style.width = (20 + Math.random() * 25) + 'px';
+
+        // Faster fall for burst
+        flower.style.animationDuration = (3 + Math.random() * 2) + 's';
+
+        // Add rotation for realism
+        flower.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        flowerContainer.appendChild(flower);
+
+        // Remove flower from DOM after animation ends
+        flower.addEventListener('animationend', () => {
+          flower.remove();
+        });
+      }
+    }
+</script>
 <!-- Bottom visuals -->
 <!-- fire animation -->
 <div class="fire">
@@ -184,19 +338,25 @@ body {
 let isEnglish = true;
 
 setInterval(() => {
-  const eng = document.getElementById("english");
-  const ben = document.getElementById("bengali");
+    const eng = document.getElementById("english");
+      const ben = document.getElementById("bengali");
+      const gEng = document.getElementById("grandparents-english");
+      const gBen = document.getElementById("grandparents-bengali");
 
-  if (isEnglish) {
-    eng.classList.remove("active");
-    ben.classList.add("active");
-  } else {
-    ben.classList.remove("active");
-    eng.classList.add("active");
-  }
+      if (isEnglish) {
+        eng.classList.remove("active");
+        ben.classList.add("active");
+        gEng.classList.remove("active");
+        gBen.classList.add("active");
+      } else {
+        ben.classList.remove("active");
+        eng.classList.add("active");
+        gBen.classList.remove("active");
+        gEng.classList.add("active");
+      }
 
-  isEnglish = !isEnglish;
-}, 5000);
+      isEnglish = !isEnglish;
+    }, 5000);
 </script>
 
 <!-- Audio Section -->
@@ -211,10 +371,11 @@ setInterval(() => {
       btn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
-          btn.textContent = 'Pause'; // Change text to Pause when playing
+          btn.textContent = '  ⏸️  '; // Change text to Pause when playing
+          /* flowerBurst(); */
         } else {
           audio.pause();
-          btn.textContent = '🎵 Play Music';  // Change text back to Play when paused
+          btn.textContent = '  🎵  ';  // Change text back to Play when paused
         }
       });
 </script>
